@@ -26,6 +26,14 @@ func NewWebOrderHandler(
 	}
 }
 
+func (h *WebOrderHandler) HandleOrder(w http.ResponseWriter, r *http.Request) {
+	if r.Method == http.MethodGet {
+		h.List(w, r)
+	} else {
+		h.Create(w, r)
+	}
+}
+
 func (h *WebOrderHandler) Create(w http.ResponseWriter, r *http.Request) {
 	var dto usecase.OrderInputDTO
 	err := json.NewDecoder(r.Body).Decode(&dto)
